@@ -917,10 +917,14 @@ static void setupLuaRecords(LuaContext& lua) // NOLINT(readability-function-cogn
     });
   lua.writeFunction("createForward", []() {
       static string allZerosIP("0.0.0.0");
+      DNSName rel=s_lua_record_ctx->qname.makeRelative(s_lua_record_ctx->zone);
       DNSName record_name = s_lua_record_ctx->zone_record.dr.d_name;
-      record_name.chopOff();
-      g_log << Logger::Info << "record_name: "<< record_name << std::endl;
-      DNSName rel=s_lua_record_ctx->qname.makeRelative(record_name);
+      if (record_name.isWildcard()) {
+        record_name.chopOff();
+        g_log << Logger::Info << "record_name: "<< record_name << std::endl;
+        s_lua_record_ctx->zone_record.dr.getContent()
+        rel=s_lua_record_ctx->qname.makeRelative(record_name);
+      }
       // parts is something like ["1", "2", "3", "4", "static"] or
       // ["1", "2", "3", "4"] or ["ip40414243", "ip-addresses", ...]
       auto parts = rel.getRawLabels();
@@ -976,10 +980,15 @@ static void setupLuaRecords(LuaContext& lua) // NOLINT(readability-function-cogn
     });
 
   lua.writeFunction("createForward6", []() {
+      DNSName rel=s_lua_record_ctx->qname.makeRelative(s_lua_record_ctx->zone);
       DNSName record_name = s_lua_record_ctx->zone_record.dr.d_name;
-      record_name.chopOff();
-      g_log << Logger::Info << "record_name: "<< record_name << std::endl;
-      DNSName rel=s_lua_record_ctx->qname.makeRelative(record_name);
+      if (record_name.isWildcard()) {
+        record_name.chopOff();
+        g_log << Logger::Info << "record_name: "<< record_name << std::endl;
+        s_lua_record_ctx->zone_record.dr.getContent()
+        rel=s_lua_record_ctx->qname.makeRelative(record_name);
+      }
+
       auto parts = rel.getRawLabels();
       if(parts.size()==8) {
         string tot;
