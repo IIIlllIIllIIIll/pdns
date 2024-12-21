@@ -161,12 +161,6 @@ lookmeup         IN           A  192.0.2.5
 dblookup         IN    LUA    A  "dblookup('lookmeup.example.org', pdns.A)[1]"
 
 whitespace       IN    LUA    TXT "'foo" "bar'"
-        """,
-        'createforward6.example.org': """
-createforward6.example.org.                 3600 IN SOA  {soa}
-createforward6.example.org.                 3600 IN NS   ns1.example.org.
-createforward6.example.org.                 3600 IN NS   ns2.example.org.
-*                                                IN    LUA    AAAA  "filterForward(createForward6(), newNMG{{'2000::/3'}}, 'fe80::1')"
         """
 # the separate createforward6 zone is because some of the code in lua-record.cc insists on working relatively to the zone apex
     }
