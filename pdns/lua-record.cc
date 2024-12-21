@@ -922,7 +922,7 @@ static void setupLuaRecords(LuaContext& lua) // NOLINT(readability-function-cogn
         return allZerosIP;
       }
       record_name.chopOff();
-      DNSName rel=s_lua_record_ctx->qname.makeRelative(record_name);
+      DNSName rel = s_lua_record_ctx->qname.makeRelative(record_name);
 
       // parts is something like ["1", "2", "3", "4", "static"] or
       // ["1", "2", "3", "4"] or ["ip40414243", "ip-addresses", ...]
@@ -985,7 +985,7 @@ static void setupLuaRecords(LuaContext& lua) // NOLINT(readability-function-cogn
         return allZerosIP;
       }
       record_name.chopOff();
-      DNSName rel=s_lua_record_ctx->qname.makeRelative(record_name);
+      DNSName rel = s_lua_record_ctx->qname.makeRelative(record_name);
 
       auto parts = rel.getRawLabels();
       if(parts.size()==8) {

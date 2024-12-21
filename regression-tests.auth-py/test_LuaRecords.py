@@ -162,7 +162,6 @@ dblookup         IN    LUA    A  "dblookup('lookmeup.example.org', pdns.A)[1]"
 
 whitespace       IN    LUA    TXT "'foo" "bar'"
         """
-# the separate createforward6 zone is because some of the code in lua-record.cc insists on working relatively to the zone apex
     }
     _web_rrsets = []
 
